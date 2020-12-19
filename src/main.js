@@ -10,6 +10,10 @@ Vue.use(VueAxios, axios)
 // Agregamos la URL base de la API
 axios.defaults.baseURL = 'http://localhost:3000/api'
 
+// axios.defaults.baseURL = 'https://mevn-eden.herokuapp.com/'
+
+
+
 import BootstrapVue from 'bootstrap-vue'
 Vue.use(BootstrapVue)
 

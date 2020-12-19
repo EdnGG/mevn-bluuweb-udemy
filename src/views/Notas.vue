@@ -85,6 +85,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -102,6 +103,9 @@ export default {
   },
   created() {
     this.listarNotas();
+  },
+  computed: {
+    ...mapState(["token"]),
   },
   methods: {
     editarNota(item) {
@@ -155,9 +159,16 @@ export default {
         });
     },
     agregarNota() {
+      let config = {
+        headers: {
+          // El token lo sacamos de 'store'
+          token: this.token,
+        },
+      };
       console.log(this.nota);
       this.axios
-        .post("/nueva-nota", this.nota)
+        // 1 ruta, 2 body, 3 headers(config)
+        .post("/nueva-nota", this.nota, config)
         .then((res) => {
           this.notas.push(res.data);
           this.nota.nombre = "";
@@ -183,8 +194,14 @@ export default {
       this.showAlert();
     },
     listarNotas() {
+      let config = {
+        headers: {
+          // El token lo sacamos de 'store'
+          token: this.token,
+        },
+      };
       this.axios
-        .get("/nota")
+        .get("/nota", config)
         .then((res) => {
           this.notas = res.data;
           // console.log(this.notas);
