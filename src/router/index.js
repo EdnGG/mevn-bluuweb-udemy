@@ -13,9 +13,9 @@ const routes = [
     component: Home
   },
   {
-    path: '/about',
-    name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/signup',
+    name: 'signup',
+    component: () => import(/* webpackChunkName: "about" */ '../views/SignUp.vue')
   },
   {
     path: '/notas',
@@ -38,11 +38,23 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  console.log(next())
   const rutaProtegida = to.matched.some(record => record.meta.requireAuth) 
   if (rutaProtegida && store.state.token === '') {
-    next({ name: 'login' })
-  } else {
-    next()
+    console.log('login')
+    return next({ name: 'login' })
+    // next({ name: 'notas' })
+    // Aqui se me ocurre meter un if para validar si el usuariohace un sign-up
+  }
+  // if (rutaProtegida) {
+  //   console.log('notas')
+  //   return next({ name: 'notas' })
+  //   // next()
+  // }
+  else {
+    console.log('next')
+    // console.log(localStorage.getItem('token'))
+    return next()
   }
 })
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container py-4" >
     <h1>Notes</h1>
     <b-alert
       :show="dismissCountDown"
@@ -16,13 +16,13 @@
       <input
         type="text"
         class="form-control my-2"
-        placeholder="name"
+        placeholder="Note's name"
         v-model="notaEditar.nombre"
       />
       <input
         type="text"
         class="form-control my-2"
-        placeholder="description"
+        placeholder="Note's description"
         v-model="notaEditar.description"
       />
       <b-button type="submit" class="btn-warning my-2 mx-4">Edit</b-button>
@@ -32,20 +32,20 @@
     </form>
 
     <form @submit.prevent="agregarNota()" v-if="!editar">
-      <h3>Add new note</h3>
+      <h3>Type new note</h3>
       <input
         type="text"
         class="form-control my-2"
-        placeholder="name"
+        placeholder="Note's name"
         v-model="nota.nombre"
       />
       <input
         type="text"
         class="form-control my-2"
-        placeholder="description"
+        placeholder="Note's description"
         v-model="nota.description"
       />
-      <b-button type="submit" class="btn-success mb-2 btn-block">Add</b-button>
+      <b-button type="submit" class="btn-ligth mb-2 btn-block">Add</b-button>
     </form>
     <table class="table">
       <thead>
@@ -65,7 +65,7 @@
           <td>{{ item.date }}</td>
           <td>
             <b-button
-              class="btn-warning btn-sm mx-2"
+              class="btn-warning btn-sm mb-2"
               @click="activarEdicion(item._id)"
               >Edit</b-button
             >
@@ -73,7 +73,7 @@
               >probando alerta</b-button
             > -->
             <b-button
-              class="btn-danger btn-sm mx-2"
+              class="btn-danger btn-sm  "
               @click="eliminarNota(item._id)"
               >Delete</b-button
             >

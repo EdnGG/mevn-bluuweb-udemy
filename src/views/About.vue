@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <h1>About</h1>
     <router-link
       class="btn btn-primary btn-block"
       :to="{ query: { seccion: 1 } }"
@@ -23,6 +23,8 @@ export default {
       // handler(newVal, oldVal)
       handler(seccion) {
         console.log(`Seccion a cambiado: ${seccion}`);
+        console.log()
+        
       },
     },
   },
