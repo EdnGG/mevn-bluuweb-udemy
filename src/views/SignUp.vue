@@ -20,7 +20,8 @@
         class="form-control my-2"
         v-model="usuario.pass"
       />
-      <div class="py-5">
+
+      <!-- <div class="py-5">
       <b-form-file
       v-model="usuario.image"
       :state="Boolean(usuario.image)"
@@ -28,7 +29,8 @@
       drop-placeholder="Drop file here..."
     ></b-form-file>
     <div class="mt-3">Selected file: {{ usuario.image ? usuario.image.name : '' }}</div>
-      </div>
+      </div> -->
+
       <b-button class="btn-block" type="submit">Sign Up</b-button>
     </form>
     <!-- <div v-if="mensaje != ''">
