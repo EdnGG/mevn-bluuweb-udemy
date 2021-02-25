@@ -21,15 +21,22 @@
         v-model="usuario.pass"
       />
 
-      <!-- <div class="py-5">
-      <b-form-file
-      v-model="usuario.image"
-      :state="Boolean(usuario.image)"
+      <div class="py-5">
+      <!-- <b-form-file
+      v-model="image"
+      @change="onFileUpload"
+      :state="Boolean(image)"
       placeholder="Choose a file or drop it here..."
       drop-placeholder="Drop file here..."
-    ></b-form-file>
-    <div class="mt-3">Selected file: {{ usuario.image ? usuario.image.name : '' }}</div>
-      </div> -->
+    ></b-form-file> -->
+
+    <!-- <div class="form-group">
+    <label for="exampleFormControlFile1">Example file input</label>
+    <input type="file"  @change="onFileUpload" class="form-control-file" id="exampleFormControlFile1">
+  </div> -->
+
+    <!-- <div class="mt-3">Selected file: {{ image ? image.image.name : '' }}</div> -->
+      </div>
 
       <b-button class="btn-block" type="submit">Sign Up</b-button>
     </form>
@@ -45,33 +52,46 @@ export default {
 data(){
   return{
     usuario: {
-      nombre: '',
-      email: '',
-      pass: '',
-      image: null,
-      }
+      nombre: 'x',
+      email: 'x@mail.com',
+      pass: '123123',
+      },
+      
   }
 },
 methods: {
   ...mapActions(["guardarUsuario"]),
   signUp(){
-
-    console.log(this.usuario);
+    // let formData = new FormData()
+    // formData.append('image', this.image)
+    // formData.append('usuario', this.usuario)
+    // console.log(' dentro de formdata', formData)
+    // console.log('objeto usuario ',this.usuario);
       this.axios
       // ruta del API 
-        .post("/signup", this.usuario)
+        .post("/signup", 
+        // formData,
+        // { 
+        //   headers: formData.getHeaders()
+          
+        
+        // },
+        this.usuario
+        )
         .then((res) => {
-          console.log(res);
+          console.log('mostrando enn consola el objeto "res": ',res);
           const token = res.data.token;
           this.guardarUsuario(token);
           this.$router.push({ name: "notas" });
         })
         .catch((e) => {
-          console.log(e);
+          console.log('Error desde el frontend',e);
           this.mensaje = e.response.data.mensaje;
         });
 
-  }
+  },
+  
+  
 },
 
 }
