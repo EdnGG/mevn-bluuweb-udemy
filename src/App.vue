@@ -35,7 +35,7 @@
               <!-- Using 'button-content' slot -->
               <template v-slot:button-content>
                 <!-- <em>User</em> -->
-                <em>{{usuarioDB.data.nombre}}</em>
+                <em>{{usuarioDB.nombre}}</em>
               </template>
               <b-dropdown-item to="/">Profile</b-dropdown-item>
               <b-dropdown-item @click="cerrarSesion()"

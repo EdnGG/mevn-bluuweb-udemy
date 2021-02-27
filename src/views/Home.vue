@@ -3,26 +3,20 @@
   <b-img center
   class="mt-5 mb-2" 
   v-bind="mainProps"
-  :src="usuarioDB.data.image"  rounded="circle" alt="Center image"></b-img>
+  :src="usuarioDB.image"  
+  rounded="circle" alt="Profile-image"></b-img>
     <br>
-    <h1>{{usuarioDB.data.nombre}}</h1>
-    <h2>{{usuarioDB.data.email}}</h2>
+    <h1>{{usuarioDB.nombre}}</h1>
+    <h2>{{usuarioDB.email}}</h2>
     <br>
-    <h3>Role: {{usuarioDB.data.role}}</h3>
+    <h3>Role: {{usuarioDB.role}}</h3>
     <p>Role: {{usuarioDB}}<p>
-    <p>ID de usuario : {{ usuarioDB.data._id}}</p>
+    <p>ID de usuario : {{ usuarioDB._id}}</p>
     <div>
 
-    <p class="home__date--member">Member sice: {{usuarioDB.data.date}}</p>
+    <p class="home__date--member">Member since: {{usuarioDB.date}}</p>
     </div>
     <div class="py-5">
-      <!-- <b-form-file
-      v-model="image"
-      @change="onFileUpload"
-      :state="Boolean(image)"
-      placeholder="Choose a file or drop it here..."
-      drop-placeholder="Drop file here..."
-    ></b-form-file> -->
     <form @submit.prevent="uploadImage">
 
     <div class="form-group">
@@ -34,7 +28,9 @@
 
     </form>
 
-    <!-- <div class="mt-3">Selected file: {{ image ? image.image.name : '' }}</div> -->
+    <!-- <p>Resultado{{result}}</p> -->
+
+    <!-- <div class="mt-3">Selected file: {{ image ? image.name : '' }}</div> -->
       </div>
   </div>
   
@@ -45,31 +41,42 @@ import {mapState, mapActions} from 'vuex'
   export default {
     data() {
       return {
-       mainProps: {
-         width: 300, height: 300 
-       },
-       image: '',
+        result: '',
+        // imageUpdated: this.usuarioDB.data.image,
+        // defaultImage: "https://lenguajejs.com/javascript/logo.svg",
+        mainProps: {
+          width: 300, height: 300 
+        },
+        image: '',
       }
+    },
+    created(){
+      console.log('this.image: ', this.image)
+    },
+    updated(){
+      console.log('Result', this.result)
+      console.log('this.image updated: ', this.image)
+      console.log('this.res updated: ', this.res)
     },
     computed: {
       ...mapState(["usuarioDB"])
     },
     methods: {
-  ...mapActions(["guardarUsuario"]),
-  uploadImage(){
+    ...mapActions(["guardarUsuario", "updateImageUsuario"]),
+    uploadImage(){
     let formData = new FormData()
     formData.append('image', this.image)
     this.axios
-         .put(`/upload/${this.usuarioDB.data._id}`, 
-      // .put(`/upload`, 
+         .put(`/upload/${this.usuarioDB._id}`, 
         formData, { headers: { 'Content-Type': 'multipart/form-data'} })
         .then((res) => {
-          // this.guardarUsuario(token);
-          console.log('Imagen posteada', res)
+          console.log(res.data.usuarioDB)
+          this.updateImageUsuario(res.data.usuarioDB)
+          
         })
         .catch((e) => {
-          console.log('Error desde el frontend',e);
-          this.mensaje = e.response.mensaje;
+          console.log('Error: ', e.response);
+          this.mensaje = e.response.data.mensaje;
         });
   },
   onFileUpload (event) {

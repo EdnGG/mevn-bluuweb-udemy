@@ -32,15 +32,15 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["guardarUsuario"]),
+    ...mapActions(["guardarUsuario"]), 
     login() {
       // console.log(this.usuario);
       this.axios
         .post("/login", this.usuario)
         .then((res) => {
           console.log(res.data);
-          const token = res.data.token;
-          this.guardarUsuario(token);
+          const data = res.data;
+          this.guardarUsuario(data);
           this.$router.push({ name: "notas" });
         })
         .catch((e) => {
