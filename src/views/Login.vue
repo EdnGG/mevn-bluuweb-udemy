@@ -38,14 +38,16 @@ export default {
       this.axios
         .post("/login", this.usuario)
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           const data = res.data;
+          console.log('res.data: ', res.data)
+          console.log('Data: ', res)
           this.guardarUsuario(data);
           this.$router.push({ name: "notas" });
         })
         .catch((e) => {
           console.log(e.response);
-          this.mensaje = e.response.data.mensaje;
+          this.mensaje = e.response;
         });
     },
   },

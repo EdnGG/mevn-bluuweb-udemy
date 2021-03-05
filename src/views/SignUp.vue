@@ -62,31 +62,19 @@ data(){
 methods: {
   ...mapActions(["guardarUsuario"]),
   signUp(){
-    // let formData = new FormData()
-    // formData.append('image', this.image)
-    // formData.append('usuario', this.usuario)
-    // console.log(' dentro de formdata', formData)
-    // console.log('objeto usuario ',this.usuario);
       this.axios
       // ruta del API 
-        .post("/signup", 
-        // formData,
-        // { 
-        //   headers: formData.getHeaders()
-          
-        
-        // },
-        this.usuario
-        )
+        .post("/signup", this.usuario)
         .then((res) => {
           console.log('mostrando enn consola el objeto "res": ',res);
-          const token = res.data.token;
-          this.guardarUsuario(token);
-          this.$router.push({ name: "notas" });
+          // token no existe, este se genera cuando usuario hace LOGIN 
+          // const token = res.token;
+          // this.guardarUsuario(token);
+          this.$router.push({ name: "login" });
         })
         .catch((e) => {
           console.log('Error desde el frontend',e);
-          this.mensaje = e.response.data.mensaje;
+          this.mensaje = e.response.mensaje;
         });
 
   },

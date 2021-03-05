@@ -25,15 +25,11 @@
     </div>
 
     <b-button class="btn-block" type="submit">Upload</b-button>
+    <p>mensaje: {{message}}</p>
 
     </form>
-
-    <!-- <p>Resultado{{result}}</p> -->
-
-    <!-- <div class="mt-3">Selected file: {{ image ? image.name : '' }}</div> -->
-      </div>
   </div>
-  
+</div>
 </template>
 
 <script>
@@ -48,15 +44,8 @@ import {mapState, mapActions} from 'vuex'
           width: 300, height: 300 
         },
         image: '',
+        message: ''
       }
-    },
-    created(){
-      console.log('this.image: ', this.image)
-    },
-    updated(){
-      console.log('Result', this.result)
-      console.log('this.image updated: ', this.image)
-      console.log('this.res updated: ', this.res)
     },
     computed: {
       ...mapState(["usuarioDB"])
@@ -64,19 +53,22 @@ import {mapState, mapActions} from 'vuex'
     methods: {
     ...mapActions(["guardarUsuario", "updateImageUsuario"]),
     uploadImage(){
-    let formData = new FormData()
+    var formData = new FormData()
     formData.append('image', this.image)
-    this.axios
-         .put(`/upload/${this.usuarioDB._id}`, 
-        formData, { headers: { 'Content-Type': 'multipart/form-data'} })
+    console.log('form-data: ', formData)
+    this.axios.put(`/upload/${this.usuarioDB._id}`, 
+        formData, 
+        { headers: { 'Content-Type': 'multipart/form-data'} }
+        )
         .then((res) => {
-          console.log(res.data.usuarioDB)
+          // console.log('form-data dentro de la promesa: ', formData)
+          console.log('res.data: ', res.data)
+          console.log('usuarioDB ya con la imagen: ', res.data.usuarioDB)
           this.updateImageUsuario(res.data.usuarioDB)
-          
         })
         .catch((e) => {
-          console.log('Error: ', e.response);
-          this.mensaje = e.response.data.mensaje;
+          console.log('Error: ', e.response.data.err.message);
+          this.message = e.response.data.err.message;
         });
   },
   onFileUpload (event) {
