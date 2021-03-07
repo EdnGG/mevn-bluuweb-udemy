@@ -25,14 +25,16 @@
         placeholder="Note's description"
         v-model="notaEditar.description"
       />
-      <b-button type="submit" class="btn-warning my-2 mx-4">Edit</b-button>
-      <b-button type="submit" class="my-2" @click="editar = false"
+      <b-button pill type="submit" class="btn-warning my-2 mx-4">Edit</b-button>
+      <b-button pill type="submit" class="my-2" @click="editar = false"
         >Cancel</b-button
       >
     </form>
 
-    <form @submit.prevent="agregarNota()" v-if="!editar">
-      <h3>Type new note</h3>
+    <form 
+    class="my-4"
+    @submit.prevent="agregarNota()" v-if="!editar">
+      <h3>Add a new note</h3>
       <input
         type="text"
         class="form-control my-2"
@@ -45,13 +47,20 @@
         placeholder="Note's description"
         v-model="nota.description"
       />
-      <b-button type="submit" class="btn-ligth mb-2 btn-block">Add</b-button>
+      <b-button pill
+        type="submit" 
+        variant="outline-info" 
+        class="my-4 btn-block"
+        size="lg"
+      >Add</b-button>
     </form>
-    <table class="table">
-      <thead>
+    <br>
+    <div class="table-responsive-sm">
+    <table class="table table-striped mt-4 pt-4 table-hover">
+      <thead class="thead-dark">
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">Name</th>
+          <th scope="col">Notes Title</th>
+          <!-- <th scope="col">Name</th> -->
           <th scope="col">Description</th>
           <th scope="col">Date</th>
           <th scope="col">Actions</th>
@@ -59,20 +68,17 @@
       </thead>
       <tbody>
         <tr v-for="(item, index) in notas" :key="index">
-          <th scope="row">{{ item._id }}</th>
-          <td>{{ item.nombre }}</td>
+          <th scope="row">{{ item.nombre }}</th>
+          <!-- <td>{{ item.nombre }}</td> -->
           <td>{{ item.description }}</td>
-          <td>{{ item.date }}</td>
+          <td>{{ item.date | moment("dddd, MMMM Do YYYY") }}</td>
           <td>
-            <b-button
-              class="btn-warning btn-sm mb-2"
+            <b-button pill
+              class="btn-warning btn-sm mb-2 mx-4"
               @click="activarEdicion(item._id)"
               >Edit</b-button
             >
-            <!-- <b-button class="btn-warning btn-sm mx-2" @click="alerta()"
-              >probando alerta</b-button
-            > -->
-            <b-button
+            <b-button pill
               class="btn-danger btn-sm  "
               @click="eliminarNota(item._id)"
               >Delete</b-button
@@ -81,7 +87,7 @@
         </tr>
       </tbody>
     </table>
-
+    </div>
     <!--  -->
 
     <nav aria-label="Page navigation example ">

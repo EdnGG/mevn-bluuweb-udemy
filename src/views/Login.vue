@@ -27,7 +27,9 @@ import { mapActions } from "vuex";
 export default {
   data() {
     return {
-      usuario: { email: "usuario2@usuario2.com", pass: "123123" },
+      usuario: { 
+        email: "", 
+        pass: "" },
       mensaje: "",
     };
   },

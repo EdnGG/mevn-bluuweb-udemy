@@ -1,35 +1,54 @@
 <template>
-  <div class="container">
-  <b-img center
-  class="mt-5 mb-2" 
-  v-bind="mainProps"
-  :src="usuarioDB.image"  
-  rounded="circle" alt="Profile-image"></b-img>
-    <br>
-    <h1>{{usuarioDB.nombre}}</h1>
-    <h2>{{usuarioDB.email}}</h2>
-    <br>
-    <h3>Role: {{usuarioDB.role}}</h3>
-    <p>Role: {{usuarioDB}}<p>
-    <p>ID de usuario : {{ usuarioDB._id}}</p>
+  <b-container fluid="sm" id="header">
+    <b-row align-h="center" class="py-5">
+      <b-col cols="6" md="6">
+        <b-card
+          bg-variant="transparent"
+          no-body
+          class="mt-4 pt-4 border-0" 
+        >
+        <b-img 
+          rounded="circle"
+          center
+          :src="usuarioDB.image ? usuarioDB.image: defaultImage" 
+          alt="User Profile"
+          v-bind="mainProps"
+          
+        ></b-img>
+        </b-card>
+      </b-col>
+    </b-row>
+  
+    <h4 class="pt-6 mt-6">{{usuarioDB.nombre}}</h4>
+     <b-card-body>
+      <b-card-title class="mb-4">{{usuarioDB.email}}</b-card-title>
+      <b-card-sub-title class="mb-4">Account type: {{usuarioDB.role}}</b-card-sub-title>
+      <b-card-text>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores quibusdam odit, aperiam architecto perferendis quas vitae soluta quia non corrupti aut animi, repellat numquam, alias aliquam esse nisi tenetur ut.
+      </b-card-text>
+    </b-card-body>
     <div>
-
-    <p class="home__date--member">Member since: {{usuarioDB.date}}</p>
+    <p class="home__date--member">Member since: {{ usuarioDB.date | moment("dddd, MMMM Do YYYY")}}</p>
     </div>
-    <div class="py-5">
+    <div class="py-2">
     <form @submit.prevent="uploadImage">
 
     <div class="form-group">
-    <label for="exampleFormControlFile1">Upload Profile Image</label>
-    <input type="file"  @change="onFileUpload" class="form-control-file" id="exampleFormControlFile1">
+
+      <b-form-file
+      placeholder="Choose a file or drop it here..."
+      drop-placeholder="Drop file here..."
+      @change="onFileUpload"
+    ></b-form-file>
+    <div class="mt-3">Selected file: {{ image ? image.name : '' }}</div>
     </div>
 
-    <b-button class="btn-block" type="submit">Upload</b-button>
-    <p>mensaje: {{message}}</p>
+    <b-button pill class="btn-block" type="submit">Upload</b-button>
+    <p v-if="message">Error : {{message}}</p>
 
     </form>
   </div>
-</div>
+</b-container>
 </template>
 
 <script>
@@ -38,17 +57,19 @@ import {mapState, mapActions} from 'vuex'
     data() {
       return {
         result: '',
-        // imageUpdated: this.usuarioDB.data.image,
-        // defaultImage: "https://lenguajejs.com/javascript/logo.svg",
+        defaultImage: "https://lenguajejs.com/javascript/logo.svg",
         mainProps: {
           width: 300, height: 300 
         },
-        image: '',
-        message: ''
+        image: null,
+        message: null
       }
     },
     computed: {
-      ...mapState(["usuarioDB"])
+      ...mapState(["usuarioDB"]),
+      getDate(){
+        return  this.usuarioDB.date | moment("dddd, MMMM Do YYYY")
+      }
     },
     methods: {
     ...mapActions(["guardarUsuario", "updateImageUsuario"]),
@@ -61,7 +82,6 @@ import {mapState, mapActions} from 'vuex'
         { headers: { 'Content-Type': 'multipart/form-data'} }
         )
         .then((res) => {
-          // console.log('form-data dentro de la promesa: ', formData)
           console.log('res.data: ', res.data)
           console.log('usuarioDB ya con la imagen: ', res.data.usuarioDB)
           this.updateImageUsuario(res.data.usuarioDB)

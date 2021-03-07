@@ -52,9 +52,9 @@ export default {
 data(){
   return{
     usuario: {
-      nombre: 'x',
-      email: 'x@mail.com',
-      pass: '123123',
+      nombre: "",
+      email: "",
+      pass: "",
       },
       
   }

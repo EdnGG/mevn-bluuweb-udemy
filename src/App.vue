@@ -38,6 +38,7 @@
                 <em>{{usuarioDB.nombre}}</em>
               </template>
               <b-dropdown-item to="/">Profile</b-dropdown-item>
+              <b-dropdown-item to="/notas">Notes</b-dropdown-item>
               <b-dropdown-item @click="cerrarSesion()"
                 >Sign Out</b-dropdown-item
               >
