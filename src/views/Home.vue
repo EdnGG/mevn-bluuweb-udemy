@@ -1,15 +1,16 @@
 <template>
-  <b-container fluid="sm" id="header">
-    <b-row align-h="center" class="py-5">
-      <b-col cols="6" md="6">
+  <b-container fluid="md">
+    <b-row align-h="center" align-v="center" 
+    class="py-5 justify-content-md-small"
+    >
+      <b-col cols="8" sm="6">
         <b-card
           bg-variant="transparent"
           no-body
           class="mt-4 pt-4 border-0" 
         >
-        <b-img 
+        <b-img center
           rounded="circle"
-          center
           :src="usuarioDB.image ? usuarioDB.image: defaultImage" 
           alt="User Profile"
           v-bind="mainProps"
@@ -59,7 +60,7 @@ import {mapState, mapActions} from 'vuex'
         result: '',
         defaultImage: "https://lenguajejs.com/javascript/logo.svg",
         mainProps: {
-          width: 300, height: 300 
+          width: 250, height: 250, center: true
         },
         image: null,
         message: null
@@ -105,5 +106,10 @@ import {mapState, mapActions} from 'vuex'
   margin-left: 20px;
   padding-top: 7%;
   font-weight: bold;
+}
+img {
+  display: flex;
+  text-align: center;
+  align-items: center;
 }
 </style>

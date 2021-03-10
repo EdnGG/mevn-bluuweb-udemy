@@ -1,15 +1,15 @@
 <template>
-  <div id="app">
+  <div id="app" >
     <!--  -->
-
-    <div>
+    <div class="main--div">
+    <!-- <b-container fluid="sm"> -->
       <b-navbar toggleable="md" type="dark" variant="dark">
         <!-- <b-navbar-brand href="#">Todo Notes</b-navbar-brand> -->
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
         <b-collapse id="nav-collapse" is-nav>
-          <b-navbar-nav>
+          <b-navbar-nav justified>
             <b-nav-item to="/"
             v-if="estaActivo">Profile</b-nav-item>
             <b-nav-item to="/signup"
@@ -46,8 +46,8 @@
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>
+    <!-- </b-container> -->
     </div>
-
     <!--  -->
 
     <router-view />
@@ -77,6 +77,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  padding-right: 0px;
+  padding-left: 0px;
 }
 
 #nav {
