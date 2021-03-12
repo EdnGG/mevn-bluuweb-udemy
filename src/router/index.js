@@ -18,10 +18,18 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/SignUp.vue')
   },
   {
-    path: '/notas',
+    path: '/notas/:searchtext?',
     name: 'notas',
     component: () => import(/* webpackChunkName: "about" */ '../views/Notas.vue'),
     meta: {requireAuth: true}
+  },  
+  {
+    /* (:searchtext?) this means that the  router expect to receive a dinamic value but if it dont receive it
+     it doesn't get an error
+    */
+    path: '/buscar/:searchtext?',
+    name: 'buscar',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Redirect.vue')    
   },
   {
     path: '/login',

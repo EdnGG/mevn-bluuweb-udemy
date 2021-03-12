@@ -55,7 +55,13 @@
       >Add</b-button>
     </form>
     <br>
-    <div class="table-responsive-sm">
+    <!-- <b-form-input
+      size="sm"
+      class="mr-sm-2"
+      placeholder="Search note's name"
+      v-model="searchText"
+    ></b-form-input> -->
+    <div class="table-responsive-sm">      
     <table class="table table-striped mt-4 pt-4 table-hover">
       <thead class="thead-dark">
         <tr>
@@ -67,7 +73,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, index) in notas" :key="index">
+        <tr v-for="(item, index) in filteredNotes" :key="index">
           <th scope="row">{{ item.nombre }}</th>
           <!-- <td>{{ item.nombre }}</td> -->
           <td>{{ item.description }}</td>
@@ -138,7 +144,7 @@ export default {
     return {
       totalNotas: 0,
       limite: 5,
-      paginaActual: 1,
+      paginaActual: 1, 
       notas: [],
       dismissSecs: 5,
       dismissCountDown: 0,
@@ -149,10 +155,11 @@ export default {
       nota: { nombre: "", description: "" },
       editar: false,
       notaEditar: {},
+      searchText: '',
     };
   },
   watch: {
-    //  con esta funcion leemos la query desde vue.js
+    //  con esta funcion leemos la query (la url) desde vue.js
     "$route.query.pagina": {
       immediate: true,
       handler(pagina) {
@@ -160,17 +167,27 @@ export default {
         this.paginacion(pagina);
         this.paginaActual = pagina;
       },
-    },
+    }
+  },
+  /** 
+  *  vm se refiere a this
+  */
+  beforeRouteEnter(to, from, next) {
+    let search = to.params.searchtext || ''
+    next(vm => vm.searchText = search)
   },
   // created() {
   //   this.listarNotas();
   // },
   computed: {
+    ...mapState(["token"]),
     cantidadPaginas() {
       // devuelve un numero entero hacia arriba
       return Math.ceil(this.totalNotas / this.limite);
     },
-    ...mapState(["token"]),
+    filteredNotes(){
+      return this.notas.filter(note => note.nombre.toLowerCase().includes(this.searchText.toLowerCase(),))
+    },
   },
   methods: {
     paginacion(pagina) {
@@ -277,24 +294,6 @@ export default {
       this.mensaje.texto = "probando alerta";
       this.showAlert();
     },
-    // listarNotas() {
-    //   let config = {
-    //     headers: {
-    //       // El token lo sacamos de 'store'
-    //       token: this.token,
-    //     },
-    //   };
-    //   this.axios
-    //     .get("/nota", config)
-    //     .then((res) => {
-    //       console.log(res.data.notaDB);
-    //       this.notas = res.data.notaDB;
-    //       // console.log(this.notas);
-    //     })
-    //     .catch((e) => {
-    //       console.log(e.response);
-    //     });
-    // },
     countDownChanged(dismissCountDown) {
       this.dismissCountDown = dismissCountDown;
     },
