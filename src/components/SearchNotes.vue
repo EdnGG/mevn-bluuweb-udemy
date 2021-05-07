@@ -30,6 +30,8 @@ computed: {
 methods: {
   // ...mapActions(["usuarioDB"]),
   searchNote(){
+    // here we're redirect to 'Redirect.vue' component and passing the value of
+    // 'this.note.nombre' as params of the URL
     this.$router.push({name: 'buscar', params: {'searchtext': this.note.nombre}})
       // let config = {
       //   headers: {

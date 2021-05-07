@@ -21,8 +21,8 @@
         v-model="usuario.pass"
       />
 
-      <div class="py-5">
-      <!-- <b-form-file
+      <div class="py-2">
+        <!-- <b-form-file
       v-model="image"
       @change="onFileUpload"
       :state="Boolean(image)"
@@ -30,12 +30,12 @@
       drop-placeholder="Drop file here..."
     ></b-form-file> -->
 
-    <!-- <div class="form-group">
+        <!-- <div class="form-group">
     <label for="exampleFormControlFile1">Example file input</label>
     <input type="file"  @change="onFileUpload" class="form-control-file" id="exampleFormControlFile1">
   </div> -->
 
-    <!-- <div class="mt-3">Selected file: {{ image ? image.image.name : '' }}</div> -->
+        <!-- <div class="mt-3">Selected file: {{ image ? image.image.name : '' }}</div> -->
       </div>
 
       <b-button class="btn-block" type="submit">Sign Up</b-button>
@@ -49,42 +49,36 @@
 <script>
 import { mapActions } from "vuex";
 export default {
-data(){
-  return{
-    usuario: {
-      nombre: "",
-      email: "",
-      pass: "",
+  data() {
+    return {
+      usuario: {
+        nombre: "",
+        email: "",
+        pass: "",
       },
-      
-  }
-},
-methods: {
-  ...mapActions(["guardarUsuario"]),
-  signUp(){
+    };
+  },
+  methods: {
+    ...mapActions(["guardarUsuario"]),
+    signUp() {
       this.axios
-      // ruta del API 
+        // ruta del API
         .post("/signup", this.usuario)
         .then((res) => {
-          console.log('mostrando enn consola el objeto "res": ',res);
-          // token no existe, este se genera cuando usuario hace LOGIN 
+          console.log('mostrando enn consola el objeto "res": ', res);
+          // token no existe, este se genera cuando usuario hace LOGIN
           // const token = res.token;
           // this.guardarUsuario(token);
           this.$router.push({ name: "login" });
         })
         .catch((e) => {
-          console.log('Error desde el frontend',e);
+          console.log("Error desde el frontend", e);
           this.mensaje = e.response.mensaje;
         });
-
+    },
   },
-  
-  
-},
-
-}
+};
 </script>
 
 <style>
-
 </style>

@@ -9,11 +9,11 @@ Vue.use(VueAxios, axios)
 
 Vue.use(require('vue-moment'));
 
-// Agregamos la URL base de la API
-// axios.defaults.baseURL = 'http://localhost:3000/api'
+// Agregamos la URL base de la API local
+axios.defaults.baseURL = 'http://localhost:3000/api'
 
 // URL proporcinanda por heroku
-axios.defaults.baseURL = 'https://mevn-eden.herokuapp.com/api'
+// axios.defaults.baseURL = 'https://mevn-eden.herokuapp.com/api'
 
 
 import BootstrapVue from 'bootstrap-vue'

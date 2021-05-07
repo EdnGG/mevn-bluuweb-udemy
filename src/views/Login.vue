@@ -14,7 +14,7 @@
         class="form-control my-2"
         v-model="usuario.pass"
       />
-      <b-button class="btn-block" type="submit">Log in</b-button>
+      <b-button class="btn-block my-4" type="submit">Log in</b-button>
     </form>
     <div v-if="mensaje != ''">
       <p>{{ mensaje }}</p>
@@ -27,14 +27,15 @@ import { mapActions } from "vuex";
 export default {
   data() {
     return {
-      usuario: { 
-        email: "", 
-        pass: "" },
+      usuario: {
+        email: "",
+        pass: "",
+      },
       mensaje: "",
     };
   },
   methods: {
-    ...mapActions(["guardarUsuario"]), 
+    ...mapActions(["guardarUsuario"]),
     login() {
       // console.log(this.usuario);
       this.axios
@@ -42,8 +43,8 @@ export default {
         .then((res) => {
           // console.log(res.data);
           const data = res.data;
-          console.log('res.data: ', res.data)
-          console.log('Data: ', res)
+          console.log("res.data: ", res.data);
+          console.log("Data: ", res);
           this.guardarUsuario(data);
           this.$router.push({ name: "notas" });
         })

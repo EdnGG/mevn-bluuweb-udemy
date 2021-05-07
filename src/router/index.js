@@ -24,7 +24,7 @@ const routes = [
     meta: {requireAuth: true}
   },  
   {
-    /* (:searchtext?) this means that the  router expect to receive a dinamic value but if it dont receive it
+    /* (:searchtext?) this means that the  router expect to receive a dinamic value but if dont? 
      it doesn't get an error
     */
     path: '/buscar/:searchtext?',
